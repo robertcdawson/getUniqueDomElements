@@ -43,7 +43,7 @@ var getUniqueDomElements = function() {
   var uniqueBodyElements = [];
   // get unique children of BODY element
   var getUniqueBodyElements = function() {
-    for (var i = indexOfBodyElement; i < uniqueDomElements.length; i++) {
+    for (var i = indexOfBodyElement + 1; i < uniqueDomElements.length; i++) {
       uniqueBodyElements.push(uniqueDomElements[i]);
     }
     return uniqueBodyElements;
