@@ -48,6 +48,5 @@ var getUniqueDomElements = function() {
     }
     return uniqueBodyElements;
   };
-  // console.log(getUniqueBodyElements());
   return getUniqueBodyElements();
 };
