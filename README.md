@@ -51,10 +51,17 @@ getUniqueDomElementsWithMetadata(true);
 ```html
 <script src="js/scripts.js"></script>
 <script>
-  // Use immediately
+  // Use immediately - functions are available globally
   console.log(getUniqueDomElements());
 </script>
 ```
+
+### Test Page
+Open `test.html` in your browser to see a comprehensive demonstration with:
+- Live examples of all function variants
+- Interactive testing with `testInteractively()`
+- Visual output and console logging
+- Various HTML elements for testing
 
 ## API Reference
 
@@ -86,6 +93,16 @@ Enhanced version that can return detailed metadata about each element type.
 Utility function that provides comprehensive DOM analysis.
 
 **Returns:** Object with DOM statistics including total elements, nesting depth, most/least common elements
+
+### `testInteractively()`
+Interactive testing function that demonstrates functionality with different container elements.
+
+**Usage:** Available in `test.html` - call from console to test with specific containers
+
+### `getUniqueDomElementsLegacy()`
+Legacy compatibility wrapper that maintains backward compatibility while using the fixed implementation.
+
+**Note:** Deprecated - use `getUniqueDomElements()` instead
 
 ## Examples
 
@@ -141,9 +158,25 @@ analyzeDomStructure();
 - **Modern Browsers**: All features supported (Chrome 51+, Firefox 54+, Safari 10+)
 - **Older Browsers**: Core functionality works with minimal polyfills for `Set` if needed
 
+## Project Files
+
+- **`js/scripts.js`** - Main implementation with all functions and utilities
+- **`test.html`** - Comprehensive test page with live demonstrations
+- **`README.md`** - This documentation file
+- **`code_analysis.md`** - Detailed technical analysis of improvements
+
 ## Development
 
 The code includes comprehensive JSDoc comments and follows modern JavaScript best practices. Each function is thoroughly documented with parameter types and return values.
+
+All functions are exposed globally on the `window` object for easy console access:
+```javascript
+window.getUniqueDomElements
+window.getUniqueDomElementsRobust  
+window.getUniqueDomElementsWithMetadata
+window.analyzeDomStructure
+window.runExamples
+```
 
 To see all features in action, run:
 ```javascript
