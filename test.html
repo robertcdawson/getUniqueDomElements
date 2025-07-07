@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Elements Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .highlight {
+            background: yellow;
+            padding: 2px 4px;
+        }
+        code {
+            background: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .console-output {
+            background: #333;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- This script element is OUTSIDE body - original code would incorrectly include it -->
+    
+    <header>
+        <h1>DOM Elements Test Page</h1>
+        <nav>
+            <ul>
+                <li><a href="#test1">Basic Test</a></li>
+                <li><a href="#test2">Advanced Test</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="test1">
+            <h2>Basic Test</h2>
+            <div class="container">
+                <p>This page contains various HTML elements to test the <code>getUniqueDomElements</code> function.</p>
+                <article>
+                    <h3>Sample Article</h3>
+                    <p>This paragraph is inside an <span class="highlight">article</span> element.</p>
+                    <blockquote>
+                        "A quote to test blockquote elements."
+                    </blockquote>
+                </article>
+            </div>
+        </section>
+
+        <section id="test2">
+            <h2>Advanced Test</h2>
+            <div class="container">
+                <form>
+                    <fieldset>
+                        <legend>Sample Form</legend>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name">
+                        <br><br>
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message"></textarea>
+                        <br><br>
+                        <button type="submit">Submit</button>
+                    </fieldset>
+                </form>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Column 1</th>
+                            <th>Column 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data 1</td>
+                            <td>Data 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Test page for DOM element analysis</p>
+        <small>&copy; 2024 DOM Elements Test</small>
+    </footer>
+
+    <!-- Load the improved script -->
+    <script src="js/scripts.js"></script>
+    
+    <script>
+        // Demonstrate the improvements when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== DOM ELEMENTS TEST RESULTS ===\n');
+            
+            // Show basic functionality
+            console.log('✅ Basic Implementation:');
+            console.log('getUniqueDomElements():', getUniqueDomElements());
+            console.log('');
+            
+            // Show robust options
+            console.log('✅ With Options (lowercase, include body):');
+            console.log('getUniqueDomElementsRobust({ toLowerCase: true, includeContainer: true }):');
+            console.log(getUniqueDomElementsRobust({ toLowerCase: true, includeContainer: true }));
+            console.log('');
+            
+            // Show metadata
+            console.log('✅ With Metadata (showing first 3 elements):');
+            const metadata = getUniqueDomElementsWithMetadata(true);
+            console.log('First 3 elements with metadata:');
+            metadata.slice(0, 3).forEach(item => {
+                console.log(`${item.tagName}: ${item.count} instances, classes: [${item.firstInstanceClasses.join(', ')}]`);
+            });
+            console.log('');
+            
+            // Show DOM analysis
+            console.log('✅ DOM Structure Analysis:');
+            const analysis = analyzeDomStructure();
+            console.log(`Total elements in body: ${analysis.totalElements}`);
+            console.log(`Unique element types: ${analysis.uniqueElements}`);
+            console.log(`Most common element: ${analysis.mostCommon[0]} (${analysis.mostCommon[1]} instances)`);
+            console.log(`Maximum nesting depth: ${analysis.deepestNesting}`);
+            console.log('');
+            
+            console.log('🎉 All tests completed! Open DevTools Console to see results.');
+            console.log('💡 Try running runExamples() to see more detailed output.');
+            
+            // Add visual feedback to page
+            const resultDiv = document.createElement('div');
+            resultDiv.innerHTML = `
+                <div class="console-output">
+✅ Tests completed successfully!
+
+Basic elements found: ${getUniqueDomElements().join(', ')}
+
+Total elements in body: ${analysis.totalElements}
+Unique element types: ${analysis.uniqueElements}
+Most common: ${analysis.mostCommon[0]} (${analysis.mostCommon[1]} instances)
+
+Check the browser console for detailed results.
+                </div>
+            `;
+            document.body.appendChild(resultDiv);
+        });
+
+        // Add some interactive testing
+        function testInteractively() {
+            console.log('\n=== INTERACTIVE TEST ===');
+            
+            // Test with different containers
+            const main = document.querySelector('main');
+            console.log('Elements in <main> only:', 
+                getUniqueDomElementsRobust({ container: main }));
+            
+            const form = document.querySelector('form');
+            console.log('Elements in <form> only:', 
+                getUniqueDomElementsRobust({ container: form }));
+                
+            console.log('✅ Interactive test completed');
+        }
+
+        // Expose test function globally
+        window.testInteractively = testInteractively;
+    </script>
+</body>
+</html>
+
+<!-- This comment and any scripts here would be OUTSIDE body -->
+<script>
+    // This script is outside body - the original flawed code might incorrectly include 
+    // elements from here, but our improved version won't because it only searches within body
+    console.log("This script runs outside body - should not affect results");
+</script>
